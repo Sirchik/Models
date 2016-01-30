@@ -3,7 +3,7 @@ class CreateBooks < ActiveRecord::Migration
     create_table :books do |t|
       t.string :title
       t.text :description
-      t.decimal :price
+      t.float :price
       t.integer :books_in_stock
 
       t.timestamps null: false

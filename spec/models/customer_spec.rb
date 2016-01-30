@@ -1,14 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
-  it 'should contain email'
-  it 'should contain password'
-  it 'should contain firstname'
-  it 'should contain lastname'
-  it 'should be required email'
-  it 'should be required password'
-  it 'should be required firstname'
-  it 'should be required lastname'
+  required_fields = %w(email password firstname lastname)
+
+  include_examples 'test fields', required_fields, []
+
   it 'email should be unique'
   it 'should have many orders'
   it 'should have many rating'

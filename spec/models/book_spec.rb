@@ -1,17 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Book, type: :model do
-  it 'should contain title'
-  it 'should contain description'
-  it 'should contain price'
-  it 'should contain books_in_stock'
-  
-  it 'title should be required'
-  it 'price should be required'
-  it 'books_in_stock should be required'
+  required_fields = %w(title price books_in_stock)
+  other_fields = %w(description)
 
-  it 'should belong to Author'
-  it 'should belong to Category'
+  include_examples 'test fields', required_fields, other_fields
 
-  it 'should have many ratings from customers'
+  it {should belong_to(:author)}
+  it {should belong_to(:category)}
+  it {should have_many(:ratings)}
 end

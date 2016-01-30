@@ -1,8 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
-  it 'has a title'
-  it 'title should require'
-  it 'title should unique'
-  it 'should have many Books'
+  let!(:category) { create(:category) }
+  
+  required_fields = %w(title)
+
+  include_examples 'test fields', required_fields, []
+  
+  it {should validate_uniqueness_of(:title)}
+  it {should have_many(:books)}
 end

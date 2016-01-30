@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160130192553) do
+ActiveRecord::Schema.define(version: 20160130215613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,14 +99,18 @@ ActiveRecord::Schema.define(version: 20160130192553) do
     t.decimal  "total_price"
     t.date     "completed_date"
     t.string   "state"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.integer  "credit_card_id"
     t.integer  "customer_id"
+    t.integer  "billing_address_id"
+    t.integer  "shipping_address_id"
   end
 
+  add_index "orders", ["billing_address_id"], name: "index_orders_on_billing_address_id", using: :btree
   add_index "orders", ["credit_card_id"], name: "index_orders_on_credit_card_id", using: :btree
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree
+  add_index "orders", ["shipping_address_id"], name: "index_orders_on_shipping_address_id", using: :btree
 
   create_table "ratings", force: :cascade do |t|
     t.text     "review"
@@ -122,6 +126,8 @@ ActiveRecord::Schema.define(version: 20160130192553) do
 
   add_foreign_key "books", "authors"
   add_foreign_key "books", "categories"
+  add_foreign_key "orders", "addresses", column: "billing_address_id"
+  add_foreign_key "orders", "addresses", column: "shipping_address_id"
   add_foreign_key "orders", "credit_cards"
   add_foreign_key "orders", "customers"
   add_foreign_key "ratings", "books"

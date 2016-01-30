@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160130190019) do
+ActiveRecord::Schema.define(version: 20160130192553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,22 +102,28 @@ ActiveRecord::Schema.define(version: 20160130190019) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "credit_card_id"
+    t.integer  "customer_id"
   end
 
   add_index "orders", ["credit_card_id"], name: "index_orders_on_credit_card_id", using: :btree
+  add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree
 
   create_table "ratings", force: :cascade do |t|
     t.text     "review"
     t.integer  "rating"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.integer  "book_id"
+    t.integer  "customer_id"
   end
 
   add_index "ratings", ["book_id"], name: "index_ratings_on_book_id", using: :btree
+  add_index "ratings", ["customer_id"], name: "index_ratings_on_customer_id", using: :btree
 
   add_foreign_key "books", "authors"
   add_foreign_key "books", "categories"
   add_foreign_key "orders", "credit_cards"
+  add_foreign_key "orders", "customers"
   add_foreign_key "ratings", "books"
+  add_foreign_key "ratings", "customers"
 end

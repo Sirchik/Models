@@ -2,12 +2,15 @@ require 'rails_helper'
 
 RSpec.describe Rating, type: :model do
   
-  other_fields = %w(text_review rating)
+  other_fields = %w(review rating)
 
   include_examples 'test fields', [], other_fields
-  it 'should contain text review'
-  it 'should contain rating'
-  it 'rating is number from one to ten'
+  it 'rating is number from one to ten' do
+    should validate_numericality_of(:rating)
+      .only_integer
+      .is_greater_than_or_equal_to(1)
+      .is_less_than_or_equal_to(10)
+  end
   it { should belong_to(:customer)}
   it { should belong_to(:book)}
 end

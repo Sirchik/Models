@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Orderitem, type: :model do
-  required_fields = %w(price, quantity)
+  required_fields = %w(price quantity)
 
   include_examples 'test fields', required_fields, []
 
